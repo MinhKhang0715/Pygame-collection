@@ -19,8 +19,8 @@ shape_group = pygame.sprite.Group()
 shape_group.add([Shape("rock", location=(200,750)), 
                 Shape("paper", location=(SCREEN_WITDH // 2, 750)), 
                 Shape("scissor", location=(SCREEN_WITDH - 200, 750))])
-computer_status = Label(text="Player:", location=(200,50))
-player_status = Label(text="Computer:", location=(SCREEN_WITDH - 200,50))
+player_status = Label(text="Player:", location=(200,50))
+computer_status = Label(text="Computer:", location=(SCREEN_WITDH - 200,50))
 status = Label(text="Let's play!", location=(SCREEN_WITDH // 2, SCREEN_HEIGHT // 2))
 is_playing = False
 
