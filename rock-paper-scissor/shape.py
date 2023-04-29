@@ -4,9 +4,9 @@ from settings import SCREEN_WITDH, IMAGE_SIZE_DEFAULT, root_dir
 
 class Shape(pygame.sprite.Sprite):
     image_paths = {
-        "rock": os.path.join(root_dir, 'assets', 'rock-removebg-preview.png'),
-        "paper": os.path.join(root_dir, 'assets', 'paper-removebg-preview.png'),
-        "scissor": os.path.join(root_dir, 'assets', 'scissor-removebg-preview.png')
+        "rock": os.path.join(root_dir, 'assets', 'rock.png'),
+        "paper": os.path.join(root_dir, 'assets', 'paper.png'),
+        "scissor": os.path.join(root_dir, 'assets', 'scissor.png')
     }
     def __init__(self, type: str = "rock", location = (0,0)):
         super().__init__()
