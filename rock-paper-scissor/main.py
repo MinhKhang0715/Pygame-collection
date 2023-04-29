@@ -21,6 +21,7 @@ shape_group.add([Shape("rock", location=(200,750)),
                 Shape("scissor", location=(SCREEN_WITDH - 200, 750))])
 player_status = Label(text="Player:", location=(200,50))
 computer_status = Label(text="Computer:", location=(SCREEN_WITDH - 200,50))
+restart_button = Label(text="Restart", location=(SCREEN_WITDH // 2,50))
 status = Label(text="Let's play!", location=(SCREEN_WITDH // 2, SCREEN_HEIGHT // 2))
 is_playing = False
 
@@ -31,6 +32,7 @@ win_conditions = {
 }
 
 def main():
+    player_point, computer_point = 0, 0
     while True:
         chosen_shape = Shape()
         computer_chosen_shape = Shape()
@@ -42,6 +44,15 @@ def main():
                     exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = pygame.mouse.get_pos()
+                    if restart_button.text_rect.collidepoint(mouse_pos):
+                        player_point, computer_point = 0, 0
+                        computer_status.text = f'Computer: {computer_point}'
+                        player_status.text = f'Player: {player_point}'
+                        status.text = "Let's play!"
+                        status.update()
+                        computer_status.update()
+                        player_status.update()
+                        is_playing = False
                     clicked_shape = [s for s in shape_group if s.rect.collidepoint(mouse_pos)]
                     if len(clicked_shape) == 0:
                         continue
@@ -53,11 +64,18 @@ def main():
                             status.text = "Draw!"
                         else:
                             winner = win_conditions[clicked_shape[0].type][computer_choice]
+                            if winner == "Computer": computer_point += 1
+                            if winner == "Player": player_point += 1
+                            computer_status.text = f'Computer: {computer_point}'
+                            player_status.text = f'Player: {player_point}'
                             status.text = f"{winner} wins!"
                         status.update()
+                        computer_status.update()
+                        player_status.update()
 
             screen.blit(background, (0,0))
             status.draw(screen)
+            restart_button.draw(screen)
             computer_status.draw(screen)
             player_status.draw(screen)
             chosen_shape.draw(screen)
