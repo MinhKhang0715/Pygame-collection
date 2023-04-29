@@ -31,12 +31,17 @@ win_conditions = {
     'scissor': {'rock': 'Computer', 'paper': 'Player'}
 }
 
+def update_all_status(status, computer_status, player_status):
+    status.update()
+    computer_status.update()
+    player_status.update()
+
 def main():
     player_point, computer_point = 0, 0
     while True:
+        is_playing = True
         chosen_shape = Shape()
         computer_chosen_shape = Shape()
-        is_playing = True
         while is_playing:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -46,20 +51,21 @@ def main():
                     mouse_pos = pygame.mouse.get_pos()
                     if restart_button.text_rect.collidepoint(mouse_pos):
                         player_point, computer_point = 0, 0
+                        shape_group.remove([chosen_shape, computer_chosen_shape])
                         computer_status.text = f'Computer: {computer_point}'
                         player_status.text = f'Player: {player_point}'
                         status.text = "Let's play!"
-                        status.update()
-                        computer_status.update()
-                        player_status.update()
+                        update_all_status(status, computer_status, player_status)
                         is_playing = False
                     clicked_shape = [s for s in shape_group if s.rect.collidepoint(mouse_pos)]
                     if len(clicked_shape) == 0:
                         continue
                     else:
+                        shape_group.remove([chosen_shape, computer_chosen_shape])
                         computer_choice = str(random.choice(choices))
                         chosen_shape = Shape(clicked_shape[0].type, location=(200, SCREEN_HEIGHT // 2))
                         computer_chosen_shape = Shape(computer_choice, location=(SCREEN_WITDH - 200, SCREEN_HEIGHT // 2))
+                        shape_group.add(chosen_shape, computer_chosen_shape)
                         if clicked_shape[0].type == computer_choice:
                             status.text = "Draw!"
                         else:
@@ -69,17 +75,13 @@ def main():
                             computer_status.text = f'Computer: {computer_point}'
                             player_status.text = f'Player: {player_point}'
                             status.text = f"{winner} wins!"
-                        status.update()
-                        computer_status.update()
-                        player_status.update()
+                        update_all_status(status, computer_status, player_status)
 
             screen.blit(background, (0,0))
             status.draw(screen)
             restart_button.draw(screen)
             computer_status.draw(screen)
             player_status.draw(screen)
-            chosen_shape.draw(screen)
-            computer_chosen_shape.draw(screen)
             shape_group.draw(screen)
             shape_group.update()
             pygame.display.update()
