@@ -58,13 +58,13 @@ def main():
                         update_all_status(status, computer_status, player_status)
                         is_playing = False
                     clicked_shape = [s for s in shape_group if s.rect.collidepoint(mouse_pos)]
-                    if not clicked_shape:
+                    if not clicked_shape or not clicked_shape[0].is_clickable:
                         continue
                     else:
                         shape_group.remove([chosen_shape, computer_chosen_shape])
                         computer_choice = str(random.choice(choices))
-                        chosen_shape = Shape(clicked_shape[0].type, location=(200, SCREEN_HEIGHT // 2))
-                        computer_chosen_shape = Shape(computer_choice, location=(SCREEN_WITDH - 200, SCREEN_HEIGHT // 2))
+                        chosen_shape = Shape(clicked_shape[0].type, location=(200, SCREEN_HEIGHT // 2), is_clickable=False)
+                        computer_chosen_shape = Shape(computer_choice, location=(SCREEN_WITDH - 200, SCREEN_HEIGHT // 2), is_clickable=False)
                         shape_group.add(chosen_shape, computer_chosen_shape)
                         if clicked_shape[0].type == computer_choice:
                             status.text = "Draw!"

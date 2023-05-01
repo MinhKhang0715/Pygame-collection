@@ -8,7 +8,7 @@ class Shape(pygame.sprite.Sprite):
         "paper": os.path.join(root_dir, 'assets', 'paper.png'),
         "scissor": os.path.join(root_dir, 'assets', 'scissor.png')
     }
-    def __init__(self, type: str = "rock", location = (0,0)):
+    def __init__(self, type: str = "rock", location = (0,0), is_clickable = True):
         super().__init__()
         self.__type = type
         self.location = location
@@ -16,6 +16,7 @@ class Shape(pygame.sprite.Sprite):
             pygame.image.load(Shape.image_paths[type]).convert_alpha(),
             (IMAGE_SIZE_DEFAULT, IMAGE_SIZE_DEFAULT))
         self.rect = self.image.get_rect(midbottom=self.location)
+        self.is_clickable = is_clickable
     
     @property
     def type(self):
