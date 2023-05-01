@@ -1,5 +1,7 @@
-import pygame
-from settings import game_font
+from pygame import font, surface
+
+font.init()
+game_font = font.Font('Pixeltype.ttf', 50)
 
 class Label:
     def __init__(self, text = "", location = (0,0), foreground = (255,255,255)):
@@ -9,7 +11,7 @@ class Label:
         self.text_surf = self.font.render(self.text, False, self.fg)
         self.text_rect = self.text_surf.get_rect(center = location)
     
-    def draw(self, screen: pygame.surface.Surface):
+    def draw(self, screen: surface.Surface):
         screen.blit(self.text_surf, self.text_rect)
 
     def update(self):
