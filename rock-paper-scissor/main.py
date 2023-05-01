@@ -10,6 +10,9 @@ clock = pygame.time.Clock()
 screen = pygame.display.set_mode((SCREEN_WITDH,SCREEN_HEIGHT))
 pygame.display.set_caption("The rock-paper-scissors game")
 choices = ["rock", "paper", "scissor"]
+bg_music = pygame.mixer.Sound('audio/bg-music.mp3')
+bg_music.set_volume(0.3)
+bg_music.play(loops=-1)
 
 background = pygame.transform.scale(
     pygame.image.load(os.path.join(root_dir, 'assets', 'blue.png')).convert(),
