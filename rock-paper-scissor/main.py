@@ -58,7 +58,7 @@ def main():
                         update_all_status(status, computer_status, player_status)
                         is_playing = False
                     clicked_shape = [s for s in shape_group if s.rect.collidepoint(mouse_pos)]
-                    if len(clicked_shape) == 0:
+                    if not clicked_shape:
                         continue
                     else:
                         shape_group.remove([chosen_shape, computer_chosen_shape])
